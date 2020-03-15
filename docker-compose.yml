@@ -18,6 +18,8 @@ services:
       - "DB_HOST=database"
     ports:
       - "80:80"
+    volumes:
+      - ./www:/var/www/html
 
 # Banco de Dados
   database:
@@ -28,6 +30,8 @@ services:
         MYSQL_ROOT_PASSWORD: 123
         MYSQL_USER: docker
         MYSQL_PASSWORD: 123
+    networks:
+      - database
     ports:
       - "3306:3306"
 
