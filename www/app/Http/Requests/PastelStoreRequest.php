@@ -28,7 +28,7 @@ class PastelStoreRequest extends FormRequest
     public function rules()
     {
         $fillable = [
-			'name' => 'request|string',
+			'name' => 'required|string',
 			'price' => 'required|decimal',
 			'photo' => [
                 'required',

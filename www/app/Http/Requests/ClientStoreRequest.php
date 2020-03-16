@@ -27,7 +27,7 @@ class ClientStoreRequest extends FormRequest
     public function rules()
     {
         $fillable = [
-			'name' => 'request|string',
+			'name' => 'required|string',
 			'email' => 'required|email|unique:clients,email',
 			'phone' => 'numeric|unique:clients,phone',
 			'birth' => 'date|present|nullable',

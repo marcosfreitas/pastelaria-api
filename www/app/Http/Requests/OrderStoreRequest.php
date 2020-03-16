@@ -27,7 +27,7 @@ class OrderStoreRequest extends FormRequest
     public function rules()
     {
         $fillable = [
-			'client' => 'request|string',
+			'client' => 'required|string',
 			'pastels' => 'required|array'
 		];
 
@@ -37,8 +37,8 @@ class OrderStoreRequest extends FormRequest
     public function attributes()
     {
         return [
-            'client' => 'Client',
-            'pastels' => 'Pastels'
+            'client' => 'client',
+            'pastels' => 'pastels'
         ];
     }
 
