@@ -10,7 +10,7 @@ $factory->define(Client::class, function (Faker $faker) {
         'uuid' => $faker->uuid,
         'name' => $faker->unique()->name,
         'email' => preg_replace('#@example\..*#', '@getnada.com', $faker->unique()->safeEmail),
-        'phone' => $faker->unique()->phoneNumber,
+        'phone' => preg_replace("#[^0-9]#", "", $faker->unique()->phoneNumber),
         'birth' => $faker->date,
         'address' => $faker->streetAddress,
         'complement' => $faker->country . ' ' . $faker->city,

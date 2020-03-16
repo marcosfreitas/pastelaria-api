@@ -1,9 +1,10 @@
 {
-    "name": "laravel/laravel",
+    "name": "marcosfreitas/pastelaria-api",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Simple API of a Pastry just for testing knowledge",
     "keywords": [
-        "framework",
+        "pastel",
+        "api",
         "laravel"
     ],
     "license": "MIT",
