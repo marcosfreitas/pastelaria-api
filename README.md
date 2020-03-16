@@ -1,6 +1,6 @@
 # API da Pastelaria
 
-API simples de uma pastelaria fictícia construída em MySQL, Laravel e NGINX para teste de conhecimento.
+API simples, sem autenticação, de uma pastelaria fictícia construída em MySQL, Laravel e NGINX para teste de conhecimento.
 
 # Utilização
 
@@ -24,11 +24,20 @@ O projeto dispara e-mail ao receber um pedido, para isso, você deve adicionar a
 
 ## Resolução de problemas
 
+O serviço DATABASE deve rodar antes da API. Isso pode não acontecer.
+
 Caso algo dê errado e você precise seguir os passos novamente, exclua os volumes preparados para evitar um comportamento indesejado:
 
 `docker volume prune --filter label=pastelaria.project.name=PASTELARIA -f;`
 
-E remova o arquivo **CONTAINER_ALREADY_RAN_ONCE** de dentro da pasta ***www**.
+Remova o arquivo **CONTAINER_ALREADY_RAN_ONCE** de dentro da pasta ***www** para que os scripts de configuração do Laravel sejam executados.
+
+
+Se nada resolver mas as tabelas tiverem sido criadas, acesse o container e execute:
+
+`php artisan db:seed`
+
+Para ter a carga inicial de dados.
 
 
 # Estruturas implementadas

@@ -13,6 +13,6 @@ class RecordsTableSeeder extends Seeder
     public function run()
     {
         // Calling just one seeder that trigger others
-        factory(OrderPastel::class, 40)->create();
+        factory(OrderPastel::class, 4)->create();
 	}
 }
