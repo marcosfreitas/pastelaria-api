@@ -1,0 +1,56 @@
+version: "3.7"
+services:
+
+# API
+  api:
+    image: marcosfreitas/demo-pastelaria-api:latest
+    tty: true
+    privileged: true
+    stdin_open: true
+    restart: always
+    depends_on:
+      - "database"
+    networks:
+      - backend
+      - database
+    environment:
+      - "DB_PORT=3306"
+      - "DB_HOST=database"
+    ports:
+      - "80:80"
+    volumes:
+      - ./www:/var/www/html
+
+# Banco de Dados
+  database:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+        MYSQL_DATABASE: ${COMPOSE_PROJECT_NAME}
+        MYSQL_ROOT_PASSWORD: 123
+        MYSQL_USER: docker
+        MYSQL_PASSWORD: 123
+    networks:
+      - database
+    ports:
+      - "3306:3306"
+
+    # 1 - salvando os dados do banco no volume apontado para a máquina host do container, para evitar perdas inesperadas
+    # 2 - executando os scripts desta pasta quando o container for executado
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./src/database/sql:/docker-entrypoint-initdb.d
+
+    healthcheck:
+       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+       timeout: 20s
+
+networks:
+  backend:
+  database:
+
+volumes:
+  dbdata:
+    driver: local
+    labels:
+      pastelaria.project.name: ${COMPOSE_PROJECT_NAME}
