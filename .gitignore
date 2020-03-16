@@ -17,6 +17,3 @@
 /www/Homestead.json
 /www/.vagrant
 /www/.phpunit.result.cache
-
-# ignoring submodules
-/submodules/
