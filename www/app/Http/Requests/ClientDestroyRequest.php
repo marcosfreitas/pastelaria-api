@@ -3,11 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Http\Traits\ClientRequestBaseTrait;
+use App\Http\Traits\BaseRequestTrait;
 
 class ClientDestroyRequest extends FormRequest
 {
-    use ClientRequestBaseTrait;
+    use BaseRequestTrait;
 
     /**
      * Determine if the user is authorized to make this request.

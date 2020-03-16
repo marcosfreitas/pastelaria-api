@@ -26,7 +26,7 @@ class ClientService
      */
     public function getByFilters(array $params = [])
 	{
-		if (empty($params) || (empty($params['email']) && empty($params['uuid']))) {
+		if (!empty($params) && empty($params['phone']) && empty($params['email']) && empty($params['uuid'])) {
 			return [
 				'error' => 1,
 				'code' => 'invalid_request_params',
@@ -42,10 +42,14 @@ class ClientService
 
         if (!empty($params['uuid'])) {
 			$filters[] = ['uuid', '=', $params['uuid']];
+        }
+
+        if (!empty($params['phone'])) {
+			$filters[] = ['phone', '=', $params['phone']];
 		}
 
         # check for existent customer
-		$found_client = $this->repository->where($filters)->get();
+        $found_client = $this->repository->where($filters)->withTrashed()->get();
 
 		if ($found_client->isEmpty()) {
 			return [
@@ -162,6 +166,18 @@ class ClientService
 
             if ($request->phone === $found_client->phone) {
                 unset($data['phone']);
+            } else {
+
+                $another_client_by_phone = $this->getByFilters(['phone' => $request->phone]);
+
+                if (empty($another_client_by_phone['error'])) {
+                    return [
+                        'error' => 1,
+                        'code' => 'phone_already_in_use',
+                        'description' => 'Este telefone não pode ser utilizado.',
+                    ];
+                }
+
             }
 
 			$updated = $found_client->update($data);

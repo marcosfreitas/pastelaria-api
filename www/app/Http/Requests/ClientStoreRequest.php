@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Traits\ClientRequestBaseTrait;
+use App\Http\Traits\BaseRequestTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ClientStoreRequest extends FormRequest
 {
-    use ClientRequestBaseTrait;
+    use BaseRequestTrait;
 
     /**
      * Determine if the user is authorized to make this request.

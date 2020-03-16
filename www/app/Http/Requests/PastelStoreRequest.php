@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\EncodedImage;
 use App\Http\Traits\BaseRequestTrait;
+use Illuminate\Foundation\Http\FormRequest;
 
-class ClientUpdateRequest extends FormRequest
+class PastelStoreRequest extends FormRequest
 {
     use BaseRequestTrait;
 
@@ -27,13 +28,12 @@ class ClientUpdateRequest extends FormRequest
     public function rules()
     {
         $fillable = [
-			'name' => 'present|string',
-			'phone' => 'numeric',
-			'birth' => 'date|present|nullable',
-			'address' => 'required|string',
-            'complement' => 'required|string',
-            'district' => 'required|string',
-			'zip_code' => 'required|string'
+			'name' => 'request|string',
+			'price' => 'required|decimal',
+			'photo' => [
+                'required',
+                new EncodedImage(['png', 'jpeg', 'jpg'])
+            ]
 		];
 
 		return $fillable;
@@ -52,6 +52,5 @@ class ClientUpdateRequest extends FormRequest
             'zip_code' => 'CEP'
         ];
     }
-
 
 }

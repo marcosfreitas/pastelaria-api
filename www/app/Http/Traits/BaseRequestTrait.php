@@ -10,7 +10,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 /**
  * Trait to implement common override methods into Client Custom Form Requests
  */
-trait ClientRequestBaseTrait
+trait BaseRequestTrait
 {
 /**
 	 * Get rewritten params passed into route (url.com/{param_1}/{param_2}) to be validated by this request, otherwise It will be invalid.

@@ -4,27 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\Pastel;
 use Illuminate\Http\Request;
+use App\Services\PastelService;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class PastelController extends Controller
 {
+    private $model_service;
+
+    public function __construct(PastelService $pastel_service)
+    {
+        $this->model_service = $pastel_service;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        $index = $this->model_service->getByFilters($request->all());
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return parent::response($index);
     }
 
     /**
@@ -35,29 +36,30 @@ class PastelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $store = $this->model_service->store($request);
+
+        return parent::response($store);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Pastel  $pastel
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show(Pastel $pastel)
+    public function show($pastel, Request $request)
     {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pastel  $pastel
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pastel $pastel)
-    {
-        //
+        $show = $this->model_service->getPastelImage($pastel, $request);
+
+        $response = parent::response($show);
+
+        if (!empty($show['error']) || $show['code'] === 'data_not_found') {
+            return $response;
+        }
+
+        return response($show['data']['image'], JsonResponse::HTTP_OK)->header('Content-Type', 'image/'. $show['data']['extension']);
+
     }
 
     /**
