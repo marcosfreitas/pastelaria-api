@@ -153,7 +153,7 @@ class ClientService
 		try {
             # check for existent customer
             # @info $request->client is passed into URL as a convention of Laravel Controller Resources
-            $found_client = $this->getByFilters(['uuid' => $request->client]);
+            $found_client = $this->getByFilters(['uuid' => $request->client], false);
 
             if (!empty($found_client['error'])) {
                 return [

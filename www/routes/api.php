@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});*/
+Route::get('/', function () {
+	return response()->json([
+		'error' => 0,
+		'code' => 'welcome',
+		'description' => "Winning is not everything, but the effort to win is. - Zig Ziglar"
+	], JsonResponse::HTTP_OK);
+})->name('login');
 
 Route::apiResources([
     'clients' => 'ClientController',

@@ -3,9 +3,11 @@
 namespace App\Services;
 
 use App\Models\Order;
+use App\Mail\OrderMail;
 use App\Services\PastelService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Resources\OrderResource;
 
 class OrderService
@@ -79,7 +81,7 @@ class OrderService
 		try {
 
             # check for existent customer
-            $found_client = $this->client_service->getByFilters(['uuid' => $request->client]);
+            $found_client = $this->client_service->getByFilters(['uuid' => $request->client], false);
 
             if (!empty($found_client['error'])) {
                 return [
@@ -150,11 +152,15 @@ class OrderService
 
             DB::commit();
 
+            $order_resource = new OrderResource($created_order);
+
+            Mail::to($found_client->email)->send(new OrderMail($order_resource));
+
 			return [
 				'error' => 0,
 				'code' => 'created_model',
 				'description' => 'Pedido cadastrado com sucesso.',
-				'data' => new OrderResource($created_order)
+				'data' => $order_resource
 			];
 
 		} catch (\Exception $e) {
