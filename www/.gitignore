@@ -9,4 +9,3 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 CONTAINER_ALREADY_RAN_ONCE
-.env
