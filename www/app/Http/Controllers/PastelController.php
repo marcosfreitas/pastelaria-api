@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pastel;
 use Illuminate\Http\Request;
 use App\Services\PastelService;
+use App\Http\Requests\PastelDestroyRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class PastelController extends Controller
@@ -23,7 +24,7 @@ class PastelController extends Controller
      */
     public function index(Request $request)
     {
-        $index = $this->model_service->getByFilters($request->all());
+        $index = $this->model_service->getByFilters($request->all(), false);
 
         return parent::response($index);
     }
@@ -62,26 +63,16 @@ class PastelController extends Controller
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pastel  $pastel
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Pastel $pastel)
-    {
-        //
-    }
-
-    /**
+     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Pastel  $pastel
+     * @param  \App\Http\Requests\PastelDestroyRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pastel $pastel)
+    public function destroy(PastelDestroyRequest $request)
     {
-        //
+        $destroy = $this->model_service->destroy($request);
+
+        return parent::response($destroy);
     }
 }

@@ -32,7 +32,12 @@ class Client extends Model
 		'birth' => 'date'
     ];
 
-    public function orders()
+    public function isTrashed()
+    {
+        return empty($this->deleted_at) ? false : true;
+    }
+
+    public function order()
     {
         return $this->hasMany(Order::class, 'client_id');
     }

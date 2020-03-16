@@ -11,24 +11,11 @@ class Order extends Model
     Use SoftDeletes;
 
     protected $dates = [
-		'birth',
 		'deleted_at'
 	];
 
 	protected $fillable = [
 		'uuid',
-		'name',
-		'birth',
-		'email',
-		'phone',
-		'address',
-		'complement',
-        'district',
-        'zip_code'
-    ];
-
-    protected $casts = [
-		'birth' => 'date'
     ];
 
     /**

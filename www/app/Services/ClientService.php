@@ -24,7 +24,7 @@ class ClientService
      * @param array $params
      * @return array
      */
-    public function getByFilters(array $params = [])
+    public function getByFilters(array $params = [], $with_trashed_resources = true)
 	{
 		if (!empty($params) && empty($params['phone']) && empty($params['email']) && empty($params['uuid'])) {
 			return [
@@ -49,7 +49,13 @@ class ClientService
 		}
 
         # check for existent customer
-        $found_client = $this->repository->where($filters)->withTrashed()->get();
+        $found_client = $this->repository->where($filters);
+
+        if ($with_trashed_resources) {
+            $found_client = $found_client->withTrashed()->get();
+        } else {
+            $found_client = $found_client->get();
+        }
 
 		if ($found_client->isEmpty()) {
 			return [

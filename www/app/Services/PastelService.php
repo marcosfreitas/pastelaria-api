@@ -24,7 +24,7 @@ class PastelService
      * @param array $params
      * @return array
      */
-    public function getByFilters(array $params = [])
+    public function getByFilters(array $params = [], $with_trashed_resources = true)
 	{
 		if (!empty($params) && empty($params['uuid'])) {
 			return [
@@ -41,7 +41,13 @@ class PastelService
 		}
 
         # check for existent customer
-		$found_model = $this->repository->where($filters)->withTrashed()->get();
+        $found_model = $this->repository->where($filters);
+
+        if ($with_trashed_resources) {
+            $found_model = $found_model->withTrashed()->get();
+        } else {
+            $found_model = $found_model->get();
+        }
 
 		if ($found_model->isEmpty()) {
 			return [
@@ -252,4 +258,53 @@ class PastelService
             }
         }
     }
+
+    /**
+     * Soft Delete resource
+     *
+     * @param Request $request
+     * @param \App\Http\Requests\PastelDestroyRequest $request
+     * @return array
+     */
+    public function destroy($request)
+	{
+		try {
+
+            $found_pastel = $this->getByFilters(['uuid' => $request->pastel]);
+
+            if (!empty($found_pastel['error'])) {
+                return [
+                    'error' => 1,
+                    'code' => 'model_not_found',
+                    'description' => 'Cadastro não encontrado para o identificador utilizado.',
+                ];
+            }
+
+            $found_pastel = $found_pastel['data']->first();
+
+            $deleted =  $this->repository->destroy($found_pastel->id);
+
+            if ($deleted) {
+                return [
+                    'error' => 0,
+                    'code' => 'deleted_model',
+                    'description' => 'Cadastro arquivado com sucesso.'
+                ];
+			}
+
+			return [
+				'error' => 1,
+				'code' => 'failed_deleting_model',
+				'description' => 'Não foi possível excluir o cadastro, tente novamente.'
+			];
+
+		} catch (\Exception $e) {
+			Log::emergency($e->getMessage(), [$e->getFile(), $e->getLine()]);
+			return  [
+				'error' => 1,
+				'code' => 'unexpected_app_exception',
+				'description' => 'Não foi possível processar a requisição'
+			];
+		}
+	}
 }

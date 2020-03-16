@@ -14,7 +14,9 @@ class ClientResource extends JsonResource
      */
     public function toArray($request)
     {
+
         return [
+            //'archived' => $this->isTrashed(),
             'uuid' => $this->uuid,
             'name' => $this->name,
             'birth' => $this->birth,
@@ -25,7 +27,8 @@ class ClientResource extends JsonResource
             'district' => $this->district,
             'zip_code' => $this->zip_code,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'updated_at' => $this->updated_at,
+            //'deleted_at' => $this->deleted_at
         ];
     }
 }

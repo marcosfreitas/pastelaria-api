@@ -24,7 +24,7 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $index = $this->model_service->getByFilters($request->all());
+        $index = $this->model_service->getByFilters($request->all(), false);
 
         return parent::response($index);
     }
@@ -40,17 +40,6 @@ class ClientController extends Controller
         $store = $this->model_service->store($request);
 
         return parent::response($store);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Client $client)
-    {
-        //
     }
 
    /**
