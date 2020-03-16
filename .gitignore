@@ -12,7 +12,6 @@
 /www/public_html/hot
 
 /www/storage/*.key
-/www/.env
 /www/Homestead.yaml
 /www/Homestead.json
 /www/.vagrant
