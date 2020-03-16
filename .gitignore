@@ -16,3 +16,4 @@
 /www/Homestead.json
 /www/.vagrant
 /www/.phpunit.result.cache
+/www/.env
