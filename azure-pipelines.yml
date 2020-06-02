@@ -11,16 +11,14 @@ pool:
 
 steps:
 
-- task: CmdLine@2
-  inputs:
-    script: 'git submodule update --init --recursive submodules/docker;'
-    failOnStderr: true
+- checkout: self
+  submodules: recursive
 
 - task: DockerCompose@0
   inputs:
     containerregistrytype: 'Container Registry'
     dockerRegistryEndpoint: 'Docker Hub C4N'
-    dockerComposeFile: './docker-compose.yml'
+    dockerComposeFile: 'docker-compose.yml'
     action: 'Run a Docker Compose command'
-    dockerComposeCommand: 'docker-compose up'
+    dockerComposeCommand: up
 
