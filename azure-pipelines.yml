@@ -14,8 +14,10 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      cp ~/.ssh/id_rsa /root/.ssh/;
-      cp ~/.ssh/id_rsa.pub /root/.ssh/;
+      whoami;
+      sudo ls -a ~/.ssh/;
+      sudo cp ~/.ssh/id_rsa /root/.ssh/;
+      sudo cp ~/.ssh/id_rsa.pub /root/.ssh/;
 
 - checkout: self
   submodules: recursive
