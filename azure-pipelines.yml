@@ -15,7 +15,7 @@ steps:
   inputs:
     knownHostsEntry: '|1|9B6hKxa/PEJJu8bS9mp8eVsIQX4=|z/IHmAyXd04OzKv4n7kQ6EMyqkU= ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ=='
     sshPublicKey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLRtCNMPFrvYoFo4b6VRQRMQ1TNBPZ9BkOp2JbogDQBM53TB+BAGYnfsuw3bn0IqHSjMD+PFNS8bqsvVy2Ut8wCyIZPRH88vvXHMLfl5IIKqexXtcdo6BAm2ktGFvzrTGZh7VTQmwh4ZsahDUlm5PCAbqf8JkQcBbj4lI8SxJKUfBkjEO9Pxd7AKmMS72cGnNWTsPDIS0J5+5/YzBD/tpjh9mI2WLqR86CFFtoZ3OaSnCK9ANmadFTIJDpp2CTWUU08DFx6lRJzoYkeGxKNhxYQ2KkXplVWlB1MnJtCNQHLMdv3MGxsGanaSjrftfg4nyG63WTsv45YcbmEwYtMUh1 marcos@matrix'
-    sshKeySecureFile: 'id_rsa'
+    sshKeySecureFile: 'pastelaria-api'
     
 - checkout: self
   submodules: recursive
